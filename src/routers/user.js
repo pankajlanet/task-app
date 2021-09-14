@@ -87,7 +87,7 @@ router.delete('/users/me', auth, async (req, res) => {
 
 // creating a multer instance to upload file on given file
 const upload = multer({
-    dest: "avatar",  // removing this is will not longer store the file in directory instead we can acccess in function
+    // removing this is will not longer store the file in directory instead we can acccess in function
     limits: {
       fileSize: 800000,
     },
@@ -99,8 +99,14 @@ const upload = multer({
     },
   });
  //middleware for the upload avatar
-router.post('/users/me/avatar', upload.single('avatar') ,  (req,res)=> {
-        res.send("file created")
+router.post('/users/me/avatar',auth ,upload.single('avatar') ,  async(req,res)=> {
+        try {
+          req.user.avatar = req.file.buffer;
+          await req.user.save();
+        } catch (e) {
+          res.status(400).send("Unabe to save the file")
+        }
+        res.send("Avater file saved");
 
 },( err ,req,res, next) => {
     
