@@ -83,9 +83,11 @@ router.delete('/users/me', auth, async (req, res) => {
 })
 
 
+
+
 // creating a multer instance to upload file on given file
 const upload = multer({
-    dest: "avatar",
+    dest: "avatar",  // removing this is will not longer store the file in directory instead we can acccess in function
     limits: {
       fileSize: 800000,
     },
@@ -101,7 +103,8 @@ router.post('/users/me/avatar', upload.single('avatar') ,  (req,res)=> {
         res.send("file created")
 
 },( err ,req,res, next) => {
-     res.send({status : "you have encountered a error",
+    
+     res.status(400).send({status : "you have encountered a error",
                 errorMessage : err.message
             })
 })
