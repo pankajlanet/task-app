@@ -3,7 +3,6 @@ require('./db/mongoose')
 const multer = require('multer')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
-require('dotenv').config();
 
 const app = express()
 const port = process.env.PORT
