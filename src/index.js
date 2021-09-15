@@ -1,6 +1,8 @@
 const express = require('express')
 require('./db/mongoose')
 const multer = require('multer')
+const Task = require('./models/task')
+const User = require('./models/user')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 
@@ -40,7 +42,3 @@ app.listen(port, () => {
 })
 
 
-
-
-const Task = require('./models/task')
-const User = require('./models/user')
