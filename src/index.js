@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(userRouter)
 app.use(taskRouter)
 
-endpoint to upload images
+// endpoint to upload images
 app.post('/upload', upload.single('upload') , (req,res)=> {
     res.send('SOME DATA')
 })
