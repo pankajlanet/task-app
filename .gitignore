@@ -1,5 +1,8 @@
 node_modules
 /node_modules
 node_modules/
-.env
 playground
+.env
+.env.js
+.env.json
+.env-cmdrc
