@@ -21,16 +21,24 @@ app.use(taskRouter)
 
 
 app.get('/' ,(req,res) => {
-    res.send("this is home page")
+    res.send("default Page")
 })
+
+
+app.get('/favicon.ico' , (req,res)=> {
+    res.send("not found")
+    
+})
+app.get('*' ,(req,res)=> {
+    res.send("file is not present")
+})
+
+
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
 
-app.get('*' ,(req,res)=> {
-    res.send("file is not present")
-})
 
 
 
