@@ -3,26 +3,27 @@ const User = require("../models/user");
 const auth = require("../middleware/auth");
 const router = new express.Router();
 const multer = require("multer");
-const { transporter } = require("../email/email");
+const {transporter} = require('../email/email')
 
 router.post("/users", async (req, res) => {
   const user = new User(req.body);
 
   try {
     await user.save();
-    transporter.sendMail( {
-      from : "pankajtest@gmail.com",
-      to : user.email,
-      subject : "Welcome to our website",
-      text : `Hello ${user.name} welcome to our website`
-    } , (err,data )=>{ if(err){
-      console.log("error occured to send the mail");
-    }
-    else{
-      console.log("data sent " , data)
-    }
-  })
     const token = await user.generateAuthToken();
+    transporter.sendMail({
+      from :"pankajtest@test.com",
+      to : user.email,
+      subject : "Sending Welcome Message",
+      text : `Welcome ${user.name}, You have signed up on our Website`
+    }  ,(err,data) => {
+      if(err){
+        console.log("email not sent");
+      }
+      else{
+        console.log("Welcome message sent",data);
+      }
+    })
     res.status(201).send({ user, token });
   } catch (e) {
     res.status(400).send(e);
@@ -91,7 +92,10 @@ router.patch("/users/me", auth, async (req, res) => {
 
 router.delete("/users/me", auth, async (req, res) => {
   try {
-    await req.user.remove();
+          
+     const name = req.user.name;
+     const email = req.user.email; 
+    await req.user.remove()
     res.send(req.user);
   } catch (e) {
 
