@@ -3,9 +3,10 @@ require('./db/mongoose')
 const multer = require('multer')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
+require('dotenv').config();
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 const upload = multer({dest : 'images'})
 
 
@@ -20,9 +21,15 @@ app.use(taskRouter)
 // })
 
 
+app.get('/' ,(req,res) => [
+    res.send("this is home page")
+])
+
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
+
+
 
 const Task = require('./models/task')
 const User = require('./models/user')
