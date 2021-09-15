@@ -28,7 +28,7 @@ app.listen(port, () => {
     console.log('Server is up on port ' + port)
 })
 
-app.get('/favicon.ico' ,(req,res)=> {
+app.get('*' ,(req,res)=> {
     res.send("file is not present")
 })
 
